@@ -2,6 +2,7 @@ package com.diraj.battery;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -11,13 +12,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 
 public class MainActivity extends ActionBarActivity
 {
@@ -33,14 +41,26 @@ public class MainActivity extends ActionBarActivity
     public  String[] processName = new String[0];//list of user process package name
     public Drawable[] imageId =new Drawable[0];
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState)
+    public void clicked(View view, int position)
     {
+        Intent intent = new Intent(this, IndividualProcess.class);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        recyclerView = (RecyclerView)findViewById(R.id.wakelock_recycler);
+        Context context = getApplicationContext();
+        recyclerView = (RecyclerView) findViewById(R.id.wakelock_recycler);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(context, new RecyclerItemClickListener.OnItemClickListener(){
+            @Override
+            public void onItemClick(View view, int position)
+            {
+                clicked(view, position);
+            }
+        }));
         recyclerView.setHasFixedSize(true);
 
         layoutManager = new LinearLayoutManager(this);
@@ -53,8 +73,7 @@ public class MainActivity extends ActionBarActivity
 
         int counterSize = userPid.length;
 
-        for(int counter = 0; counter < counterSize; counter++)
-        {
+        for (int counter = 0; counter < counterSize; counter++) {
             wakelocks.add(new WLData(processName[counter], userPid[counter], packageName[counter], imageId[counter]));
         }
 
@@ -226,4 +245,34 @@ public class MainActivity extends ActionBarActivity
 
         return super.onOptionsItemSelected(item);
     }
+}
+
+class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
+    private OnItemClickListener mListener;
+
+    public interface OnItemClickListener {
+        public void onItemClick(View view, int position);
+    }
+
+    GestureDetector mGestureDetector;
+
+    public RecyclerItemClickListener(Context context, OnItemClickListener listener) {
+        mListener = listener;
+        mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {
+            @Override public boolean onSingleTapUp(MotionEvent e) {
+                return true;
+            }
+        });
+    }
+
+    @Override public boolean onInterceptTouchEvent(RecyclerView view, MotionEvent e) {
+        View childView = view.findChildViewUnder(e.getX(), e.getY());
+        if (childView != null && mListener != null && mGestureDetector.onTouchEvent(e)) {
+            mListener.onItemClick(childView, view.getChildPosition(childView));
+            return true;
+        }
+        return false;
+    }
+
+    @Override public void onTouchEvent(RecyclerView view, MotionEvent motionEvent) { }
 }

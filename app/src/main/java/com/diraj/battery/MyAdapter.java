@@ -4,6 +4,7 @@ package com.diraj.battery;
  * Created by diraj on 2/26/15.
  */
 
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
