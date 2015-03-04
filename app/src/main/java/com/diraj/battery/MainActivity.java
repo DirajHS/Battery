@@ -43,6 +43,13 @@ public class MainActivity extends ActionBarActivity
 
     public void clicked(View view, int position)
     {
+        int selectedItemPosition = recyclerView.getChildPosition(view);
+        RecyclerView.ViewHolder viewHolder
+                = recyclerView.findViewHolderForPosition(selectedItemPosition);
+        TextView textViewName
+                = (TextView) viewHolder.itemView.findViewById(R.id.Process);
+        String selectedName = (String) textViewName.getText();
+        System.out.println("Process:"+selectedName);
         Intent intent = new Intent(this, IndividualProcess.class);
         startActivity(intent);
     }

@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 public class IndividualProcess extends ActionBarActivity {
@@ -14,6 +17,8 @@ public class IndividualProcess extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_process);
 
+        //WLData Process = (WLData)getIntent().getSerializableExtra("processDetails");
+        Toast.makeText(getApplicationContext(), "Fuck off", Toast.LENGTH_SHORT).show();
     }
 
 
