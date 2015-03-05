@@ -21,6 +21,7 @@ import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +35,7 @@ public class MainActivity extends ActionBarActivity
     private static RecyclerView.LayoutManager layoutManager;
     private static RecyclerView recyclerView;
     private static ArrayList<WLData> wakelocks;
+    private WLData selectedProcess;
 
     //Wakelock Details will be stored in below arrays which are changed dynamically in size
     public String[] packageName = new String[0];
@@ -49,9 +51,20 @@ public class MainActivity extends ActionBarActivity
         TextView textViewName
                 = (TextView) viewHolder.itemView.findViewById(R.id.Process);
         String selectedName = (String) textViewName.getText();
-        System.out.println("Process:"+selectedName);
+        for(int counter = 0; counter < wakelocks.size(); counter++)
+        {
+            WLData tmpObject = wakelocks.get(counter);
+            if(tmpObject.getProcess().equals((String)selectedName))
+            {
+                selectedProcess = tmpObject;
+
+            }
+        }
         Intent intent = new Intent(this, IndividualProcess.class);
+        intent.putExtra("ProcessClicked", selectedProcess);
         startActivity(intent);
+        //System.out.println("Process:"+selectedName);
+
     }
 
     @Override

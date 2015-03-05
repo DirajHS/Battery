@@ -1,5 +1,6 @@
 package com.diraj.battery;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -7,18 +8,19 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
-public class IndividualProcess extends ActionBarActivity {
+public class IndividualProcess extends ActionBarActivity  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_process);
 
-        //WLData Process = (WLData)getIntent().getSerializableExtra("processDetails");
-        Toast.makeText(getApplicationContext(), "Fuck off", Toast.LENGTH_SHORT).show();
+       WLData Process = getIntent().getParcelableExtra("ProcessClicked");
+       Toast.makeText(getApplicationContext(), Process.getProcess(), Toast.LENGTH_SHORT).show();
     }
 
 
