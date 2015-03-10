@@ -46,7 +46,7 @@ public class WLData implements Parcelable {
         dest.writeString(Process);
         dest.writeInt(PID);
         dest.writeString(Package);
-        dest.writeValue(Icon);
+        //dest.writeValue(Icon);
     }
 
     public static final Creator<WLData> CREATOR = new Creator<WLData>() {
