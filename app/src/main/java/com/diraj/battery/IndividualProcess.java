@@ -1,5 +1,6 @@
 package com.diraj.battery;
 
+import android.app.ActionBar;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import org.w3c.dom.Text;
 
@@ -43,7 +45,10 @@ public class IndividualProcess extends ActionBarActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_process);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setActionBar(toolbar);
        WLData Process = getIntent().getParcelableExtra("ProcessClicked");
+
 
         packageName = Process.getPackage();
         userPid = Process.getPID();

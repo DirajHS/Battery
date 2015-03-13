@@ -19,6 +19,7 @@
         <activity
             android:name=".IndividualProcess"
             android:label="@string/title_activity_individual_process"
+            android:theme="@style/Individual"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
