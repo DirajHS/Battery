@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
@@ -16,6 +17,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -33,6 +36,7 @@ public class IndividualProcess extends ActionBarActivity  {
     public Drawable icon;
     public String version;
     public String wakelockType;
+    public int CPUUsage;
 
 
     @Override
@@ -46,19 +50,37 @@ public class IndividualProcess extends ActionBarActivity  {
         processName = Process.getProcess();
         icon = getIcon(userPid);
         wakelockType = getWakeLockType(Process.getPID());
+        CPUUsage = getCPUUsage(Process.getPID());
 
         ImageView iconHolder = (ImageView)findViewById(R.id.Icon);
         TextView processHolder = (TextView)findViewById(R.id.Process);
         TextView versionHolder = (TextView) findViewById(R.id.Version);
         TextView typeHolder = (TextView) findViewById(R.id.Type);
-
+        TextView riskHolder = (TextView) findViewById(R.id.Risk);
+        TextView cpuHolder = (TextView) findViewById(R.id.CPU);
         if(icon != null)
             iconHolder.setImageDrawable(icon);
 
         processHolder.setText(processName);
         versionHolder.setText("Version: "+ version);
         typeHolder.setText(wakelockType);
-        Toast.makeText(getApplicationContext(), timeinfo(Process.getPackage()), Toast.LENGTH_SHORT).show();
+        cpuHolder.setText(CPUUsage+"%");
+        if(CPUUsage < 5)
+        {
+            riskHolder.setText("High");
+            riskHolder.setTextColor(Color.RED);
+        }
+        else if(CPUUsage >= 5 && CPUUsage <= 10)
+        {
+            riskHolder.setText("Medium");
+            riskHolder.setTextColor(Color.BLUE);
+        }
+        else
+        {
+            riskHolder.setText("Low");
+            riskHolder.setTextColor(Color.GREEN);
+        }
+        //Toast.makeText(getApplicationContext(), timeinfo(Process.getPackage()), Toast.LENGTH_SHORT).show();
     }
 
 
@@ -82,6 +104,44 @@ public class IndividualProcess extends ActionBarActivity  {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public int getCPUUsage(int PID)
+    {
+        int Usage = 0;
+        int skipLines = 0;
+        String cmdOutLine;
+        try
+        {
+            Process p = Runtime.getRuntime().exec(new String[]{"top", "-n", "1"});
+            BufferedReader breader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            while ((cmdOutLine = breader.readLine()) != null)
+            {
+                //System.out.println(cmdOutLine);
+                if(skipLines < 7)
+                {
+                    skipLines = skipLines + 1;
+                }
+                else
+                {
+                    String[] values = new String[100];
+                    String[] v = new String[5]; //for splitting CPU Usage which is of the form 5%
+                    cmdOutLine = cmdOutLine.replaceAll("\\s+", " ");
+                    values = cmdOutLine.split(" "); //get single line command output
+                    int pid = (int)Integer.parseInt(values[1]);
+                    v = values[3].split("%"); //get integer CPU Usage
+                    int cpu = (int)Integer.parseInt(v[0]);
+                    if(pid == PID)
+                    {
+                        Usage = cpu;
+                        //System.out.println(Usage+"%");
+                    }
+                }
+
+            }
+        } catch (Exception exception) {
+            exception.getMessage();
+        }
+        return Usage;
     }
     public String timeinfo(String Package)
     {
@@ -172,7 +232,7 @@ public class IndividualProcess extends ActionBarActivity  {
                             s = s.replaceAll("\\s+", " ");
                             String [] temp = s.split(" ");
                             wlType = temp[1];
-                            System.out.println(temp[1]);
+                            //System.out.println(temp[1]);
 
                         }
 
