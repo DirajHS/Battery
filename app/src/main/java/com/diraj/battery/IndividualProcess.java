@@ -52,6 +52,7 @@ public class IndividualProcess extends ActionBarActivity  {
             am.killBackgroundProcesses(Package);
 
         Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
     }
     @Override

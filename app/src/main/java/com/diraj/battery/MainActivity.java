@@ -43,6 +43,8 @@ public class MainActivity extends ActionBarActivity
     public  String[] processName = new String[0];//list of user process package name
     public Drawable[] imageId =new Drawable[0];
 
+    public void refresh()
+    {}
     public void clicked(View view, int position)
     {
         int selectedItemPosition = recyclerView.getChildPosition(view);
@@ -62,6 +64,7 @@ public class MainActivity extends ActionBarActivity
         }
         Intent intent = new Intent(this, IndividualProcess.class);
         intent.putExtra("ProcessClicked", selectedProcess);
+        intent.setFlags(intent.getFlags() | Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(intent);
         //System.out.println("Process:"+selectedName);
 
@@ -259,7 +262,8 @@ public class MainActivity extends ActionBarActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.refresh) {
+            startActivity(new Intent(this, MainActivity.class));
             return true;
         }
 
