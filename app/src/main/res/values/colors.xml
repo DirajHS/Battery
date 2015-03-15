@@ -3,8 +3,8 @@
     <color name="text_secondary">#D9000000</color>
     <color name="photo_tint">#88101010</color>
 
-    <color name="primary">#3F51B5</color>
-    <color name="primary_dark">#303F9F</color>
+    <color name="primary">#66BB6A</color>
+    <color name="primary_dark">#1565c0</color>
     <color name="accent">#F50056</color>
     <color name="text_primary">#FFFFFF</color>
     <color name="bkg_card">#8C9EFF</color>

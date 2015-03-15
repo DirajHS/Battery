@@ -1,8 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-
-    android:background="#000000"
+    android:background="#FFFFFFFF"
     android:orientation="vertical"
     tools:context="com.diraj.battery.IndividualProcess"
     android:alpha="0.87">
@@ -10,7 +11,7 @@
 <android.support.v7.widget.Toolbar
     android:id="@+id/toolbar"
     android:minHeight="?attr/actionBarSize"
-    android:background="#2196F3"
+    android:background="#2196f3"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -32,8 +33,8 @@
                 android:id="@+id/Process"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textColor="#3F51B5"
+                android:layout_gravity="center"
+                android:textColor="@color/text_primary"
                 android:text="Large Text"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 />
@@ -41,8 +42,8 @@
                 android:id="@+id/Version"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:textColor="#3F51B5"
+                android:layout_gravity="center"
+                android:textColor="@color/text_primary"
                 android:text="Large Text"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 />
@@ -54,7 +55,6 @@
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="5dp"
     card_view:cardUseCompatPadding="true"
-    card_view:cardBackgroundColor="@color/moccasin"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         card_view:cardCornerRadius="5dp"
         card_view:cardUseCompatPadding="true"
-        card_view:cardBackgroundColor="@color/text_primary"
+        card_view:cardBackgroundColor="#e3f2fd"
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
         xmlns:android="http://schemas.android.com/apk/res/android">
 
@@ -86,7 +86,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:textStyle="italic"
             android:text="Type:"
             android:textSize="8pt"
             android:textColor="@color/text_secondary"/>
@@ -95,7 +94,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:textStyle="italic"
             android:layout_gravity="center"
             android:text="SCREEN_BRIGHT_WAKE_LOCK"
             android:textSize="8pt"
@@ -116,7 +114,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textStyle="italic"
                 android:text="Duration:"
                 android:textSize="8pt"
                 android:textColor="@color/text_secondary"/>
@@ -126,7 +123,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:textStyle="italic"
                 android:textSize="8pt"
                 android:textColor="@color/text_secondary"/>
         </LinearLayout>
@@ -145,7 +141,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textStyle="italic"
                 android:text="Risk:"
                 android:textSize="8pt"
                 android:textColor="@color/text_secondary"/>
@@ -155,7 +150,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="10dp"
-                android:textStyle="italic"
                 android:textColor="@color/text_secondary"
                 android:textSize="8pt"
             />
@@ -169,7 +163,7 @@
     android:layout_height="wrap_content"
     card_view:cardCornerRadius="5dp"
     card_view:cardUseCompatPadding="true"
-    card_view:cardBackgroundColor="@color/text_primary"
+    card_view:cardBackgroundColor="#e3f2fd"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     >
@@ -190,7 +184,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textStyle="italic"
                 android:text="CPU:"
                 android:textSize="8pt"
                 android:textColor="@color/text_secondary"/>
@@ -200,7 +193,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center"
-                android:textStyle="italic"
                 android:textSize="8pt"
                 android:textColor="@color/text_secondary"/>
         </LinearLayout>
@@ -219,7 +211,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:textStyle="italic"
                 android:text="Memory:"
                 android:textSize="8pt"
                 android:textColor="@color/text_secondary"/>
@@ -229,7 +220,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="8dp"
-                android:textStyle="italic"
                 android:textSize="8pt"
                 android:textColor="@color/text_secondary"
                 />
@@ -238,6 +228,35 @@
     </LinearLayout>
 
 </android.support.v7.widget.CardView>
+<android.support.v7.widget.CardView
+        android:id="@+id/kill"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="5dp"
+        card_view:cardUseCompatPadding="true"
+        card_view:cardBackgroundColor="@color/red"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/hazard"
+        />
+        <TextView
+            android:id="@+id/killer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/text_primary"
+            android:textSize="14pt"
+        />
+    </LinearLayout>
+    </android.support.v7.widget.CardView>
 
 
 </LinearLayout>

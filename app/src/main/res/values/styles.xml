@@ -5,6 +5,9 @@
         <!-- Customize your theme here. -->
     </style>
     <style name="Individual" parent="Theme.AppCompat">
+        <item name="android:colorPrimary">@color/primary</item>
+        <item name="android:colorPrimaryDark">@color/primary_dark</item>
+        <item name="android:colorAccent">@color/accent</item>
         <item name="android:windowNoTitle">true</item>
         <item name="windowActionBar">false</item>
     </style>

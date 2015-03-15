@@ -1,16 +1,20 @@
 package com.diraj.battery;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.SystemClock;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -41,14 +45,29 @@ public class IndividualProcess extends ActionBarActivity  {
     public int CPUUsage;
 
 
+    public void kill(String Package) {
+
+
+            ActivityManager am = (ActivityManager)getApplicationContext().getSystemService(Activity.ACTIVITY_SERVICE);
+            am.killBackgroundProcesses(Package);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_individual_process);
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setActionBar(toolbar);
-       WLData Process = getIntent().getParcelableExtra("ProcessClicked");
-
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        final WLData Process = getIntent().getParcelableExtra("ProcessClicked");
+        CardView cardView = (CardView) findViewById(R.id.kill);
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                kill((Process.getPackage()));
+            }
+        });
 
         packageName = Process.getPackage();
         userPid = Process.getPID();
@@ -63,9 +82,14 @@ public class IndividualProcess extends ActionBarActivity  {
         TextView typeHolder = (TextView) findViewById(R.id.Type);
         TextView riskHolder = (TextView) findViewById(R.id.Risk);
         TextView cpuHolder = (TextView) findViewById(R.id.CPU);
+        TextView killer = (TextView) findViewById(R.id.killer);
+        Typeface forceKillType = Typeface.createFromAsset(getAssets(), "fonts/Caviar_Dreams_Bold.ttf");
+        killer.setTypeface(forceKillType);
+
         if(icon != null)
             iconHolder.setImageDrawable(icon);
 
+        killer.setText("FORCE KILL");
         processHolder.setText(processName);
         versionHolder.setText("Version: "+ version);
         typeHolder.setText(wakelockType);
@@ -87,7 +111,6 @@ public class IndividualProcess extends ActionBarActivity  {
         }
         //Toast.makeText(getApplicationContext(), timeinfo(Process.getPackage()), Toast.LENGTH_SHORT).show();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
