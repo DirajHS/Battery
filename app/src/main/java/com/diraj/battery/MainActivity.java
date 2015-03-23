@@ -262,8 +262,8 @@ public class MainActivity extends ActionBarActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.refresh) {
-            startActivity(new Intent(this, MainActivity.class));
+        if (id == R.id.about) {
+            startActivity(new Intent(this, About.class));
             return true;
         }
 

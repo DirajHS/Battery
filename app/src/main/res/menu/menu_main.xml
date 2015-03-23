@@ -5,5 +5,8 @@
         android:icon="@drawable/refresh"
         android:orderInCategory="100" app:showAsAction="always"
     />
+    <item android:id="@+id/about" android:title="About"
+        app:showAsAction="ifRoom"
+        />
 
 </menu>

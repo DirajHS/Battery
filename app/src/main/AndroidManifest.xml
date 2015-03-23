@@ -25,6 +25,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.diraj.battery.MainActivity" />
         </activity>
+        <activity android:name=".About"
+            android:label="About">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.diraj.battery.MainActivity"
+            />
+        </activity>
     </application>
 
 </manifest>
